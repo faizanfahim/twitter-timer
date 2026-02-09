@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Chrome Extension specific (uncomment if you don't want to include icons)
+# icons/*.png
+# !icons/icon.svg
+
+# Screenshots folder (for GitHub)
+screenshots/
+
+# Temporary files
+*.tmp
+.cache/

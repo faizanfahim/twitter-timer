@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Timer - Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      color: #fff;
+      transition: all 0.3s;
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    .website-list {
+      list-style: none;
+    }
+
+    .website-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .website-item span {
+      color: #fff;
+    }
+
+    .remove-btn {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .remove-btn:hover {
+      background: rgba(239, 68, 68, 0.3);
+    }
+
+    .add-website {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .add-website input {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+
+    .add-website input:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+
+    .add-website input::placeholder {
+      color: #666;
+    }
+
+    .add-btn {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .add-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px -3px rgba(99, 102, 241, 0.4);
+    }
+
+    .save-btn {
+      width: 100%;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 10px;
+    }
+
+    .save-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
+    }
+
+    .save-btn.saved {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mission Timer Settings</h1>
+    <p class="subtitle">Customize your focus sessions</p>
+
+    <div class="card">
+      <h2>Timer Duration</h2>
+      <div class="form-group">
+        <label for="timer-duration">Default timer duration (seconds)</label>
+        <input type="number" id="timer-duration" min="10" max="3600" value="120">
+        <p class="help-text">Recommended: 60-300 seconds for quick tasks</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Website List</h2>
+      <p style="color: #888; font-size: 14px; margin-bottom: 16px;">These websites will trigger the mission timer</p>
+      <ul class="website-list" id="website-list">
+        <!-- Websites will be populated here -->
+      </ul>
+      <div class="add-website">
+        <input type="text" id="new-website" placeholder="e.g., instagram.com">
+        <button class="add-btn" id="add-btn">Add</button>
+      </div>
+    </div>
+
+    <button class="save-btn" id="save-btn">Save Settings</button>
+  </div>
+
+  <script>
+    // Default settings
+    const DEFAULT_SETTINGS = {
+      timerDuration: 120,
+      websites: [
+        'x.com',
+        'twitter.com',
+        'linkedin.com',
+        'reddit.com'
+      ]
+    };
+
+    let currentSettings = { ...DEFAULT_SETTINGS };
+
+    // Load settings
+    function loadSettings() {
+      chrome.storage.sync.get(['settings'], (result) => {
+        if (result.settings) {
+          currentSettings = result.settings;
+        }
+        
+        document.getElementById('timer-duration').value = currentSettings.timerDuration;
+        renderWebsiteList();
+      });
+    }
+
+    // Render website list
+    function renderWebsiteList() {
+      const list = document.getElementById('website-list');
+      list.innerHTML = '';
+
+      if (currentSettings.websites.length === 0) {
+        list.innerHTML = '<li class="empty-state">No websites added yet</li>';
+        return;
+      }
+
+      currentSettings.websites.forEach((site, index) => {
+        const li = document.createElement('li');
+        li.className = 'website-item';
+        li.innerHTML = `
+          <span>${site}</span>
+          <button class="remove-btn" data-index="${index}">Remove</button>
+        `;
+        list.appendChild(li);
+      });
+
+      // Add remove handlers
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = parseInt(e.target.dataset.index);
+          currentSettings.websites.splice(index, 1);
+          renderWebsiteList();
+        });
+      });
+    }
+
+    // Add website
+    function addWebsite() {
+      const input = document.getElementById('new-website');
+      let site = input.value.trim().toLowerCase();
+      
+      if (!site) return;
+      
+      // Remove protocol and www
+      site = site.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
+      
+      if (!site) return;
+      
+      if (currentSettings.websites.includes(site)) {
+        input.style.borderColor = '#ef4444';
+        setTimeout(() => {
+          input.style.borderColor = '';
+        }, 1000);
+        return;
+      }
+      
+      currentSettings.websites.push(site);
+      input.value = '';
+      renderWebsiteList();
+    }
+
+    // Save settings
+    function saveSettings() {
+      const duration = parseInt(document.getElementById('timer-duration').value);
+      
+      if (duration < 10 || duration > 3600) {
+        alert('Timer duration must be between 10 and 3600 seconds');
+        return;
+      }
+      
+      currentSettings.timerDuration = duration;
+      
+      chrome.storage.sync.set({ settings: currentSettings }, () => {
+        const btn = document.getElementById('save-btn');
+        const originalText = btn.textContent;
+        btn.textContent = 'Saved!';
+        btn.classList.add('saved');
+        
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('saved');
+        }, 2000);
+      });
+    }
+
+    // Event listeners
+    document.getElementById('add-btn').addEventListener('click', addWebsite);
+    document.getElementById('new-website').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addWebsite();
+    });
+    document.getElementById('save-btn').addEventListener('click', saveSettings);
+
+    // Load on startup
+    loadSettings();
+  </script>
+</body>
+</html>
